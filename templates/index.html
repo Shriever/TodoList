@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo List</title>
+    <!-- Materialize -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+  </head>
+  <body class="orange lighten-3">
+    <div class="container center-align">
+      <h1>My<span class="blue-text lighten-2">TODO</span>List</h1>
+      <div class="row">
+        <form id="activity-form">
+          <div class="input-field col s6">
+            <input type="text" class="validate" id="name" />
+            <label for="activity">Activity</label>
+          </div>
+          <div class="input-field col s6">
+            <input type="time" class="validate" id="time" />
+            <label for="time">Time</label>
+          </div>
+          <div class="row">
+            <button type="submit" class="waves-effect waves-light btn-large"">Add</button>
+          </div>
+        </form>
+      </div>
+      <table class="striped">
+        <thead>
+          <tr>
+            <th>Activity</th>
+            <th>Time</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="activity-list">
+          
+        </tbody>
+      </table>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="../app.js"></script>
+  </body>
+</html>
