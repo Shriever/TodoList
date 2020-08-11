@@ -16,15 +16,20 @@ class Store {
     }
     return JSON.parse(activities);
   }
-  static addActivity(name, time) {
-    let activities = Store.getActivities();
-    const newActivity = {
-      name: name,
-      time: time,
-    };
+  static addActivity(activity) {
+    const activities = Store.getActivities();
 
-    activities.push(newActivity);
+    activities.push(activity);
 
+    localStorage.setItem("activities", JSON.stringify(activities));
+  }
+  static removeActivity(name) {
+    const activities = Store.getActivities();
+    activities.forEach((el, index) => {
+      if (el.name === name) {
+        activities.splice(index, 1);
+      }
+    });
     localStorage.setItem("activities", JSON.stringify(activities));
   }
 }
@@ -33,7 +38,6 @@ class Store {
 class UI {
   static displayActivities() {
     const activities = Store.getActivities();
-    console.log(activities);
     activities.forEach((el) => {
       UI.addActivity(el);
     });
@@ -52,9 +56,30 @@ class UI {
   }
   static removeActivity(el) {
     if (el.classList.contains("delete")) {
+      const name =
+        el.parentElement.previousElementSibling.previousElementSibling
+          .textContent;
       el.parentElement.parentElement.remove();
+      Store.removeActivity(name);
+
+      UI.showAlert("Activity removed", "green");
     }
   }
+  static showAlert(message, color) {
+    const container = document.querySelector(".container");
+    const form = document.querySelector(".row");
+    const div = document.createElement("div");
+    div.innerHTML = message;
+    div.className = `${color} card `;
+
+    container.insertBefore(div, form);
+
+    // remove after three seconds
+    setTimeout(() => {
+      div.remove();
+    }, 3000);
+  }
+
   static clearFields() {
     document.querySelector("#name").value = "";
     document.querySelector("#time").value = "";
@@ -72,16 +97,23 @@ document.querySelector("#activity-form").addEventListener("submit", (e) => {
   const name = document.querySelector("#name").value;
   const time = document.querySelector("#time").value;
 
-  const activity = new Activity(name, time);
+  if (name === "" || time === "") {
+    UI.showAlert("Please include the activity and time", "red");
+  } else {
+    const activity = new Activity(name, time);
 
-  // Add activity to UI
-  UI.addActivity(activity);
+    // Add activity to UI
+    UI.addActivity(activity);
 
-  // Add activity to Store
-  Store.addActivity(activity);
+    // Add activity to Store
+    Store.addActivity(activity);
 
-  // Clear inputs
-  UI.clearFields();
+    // Clear inputs
+    UI.clearFields();
+
+    // Show alert
+    UI.showAlert("Activity Added", "green");
+  }
 });
 // Event: Remove an Activity
 document.querySelector("#activity-list").addEventListener("click", (e) => {

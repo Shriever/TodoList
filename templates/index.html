@@ -9,6 +9,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
     />
+
   </head>
   <body class="green lighten-3">
     <div class="container center-align">
@@ -16,12 +17,14 @@
       <div class="row">
         <form id="activity-form">
           <div class="input-field col s6">
-            <input type="text" class="validate" id="name" />
-            <label for="activity">Activity</label>
+            <label class="blue-text" for="activity">Activity</label>
+            <input type="text" class="validate" id="name" placeholder=" "/>
+          
           </div>
           <div class="input-field col s6">
-            <input type="time" class="validate" id="time" />
-            <label for="time">Time</label>
+            <label class="blue-text" for="time">Time</label>
+            <input type="time" class="validate" id="time" placeholder=" " />
+          
           </div>
           <div class="row">
             <button type="submit" class="waves-effect waves-light btn-large"">Add</button>
